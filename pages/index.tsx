@@ -4,17 +4,15 @@ import { getPosts } from "../services/posts";
 import { PostDataType } from "../interface/data";
 import Card from "../shared/components/Card";
 
-
 const Home: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ posts }) => {
-
-  
   return (
     <main className="h-screen">
       <Head>
         <title>Blog Page</title>
       </Head>
+  
 
       {posts && posts.length > 0 ? (
         <ul className="p-20 grid gap-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">

@@ -34,6 +34,6 @@ export interface EditPost {
 export interface RouterTypes {
   Home: string;
   AddPost: string;
-  UpdatePost: string;
-  Detail: string;
+  ActionPost: string;
+  DetailPost: string;
 }

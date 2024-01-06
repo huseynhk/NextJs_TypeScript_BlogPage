@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
     "@types/react-query": "^1.2.9",
     "axios": "^1.6.4",
     "daisyui": "^4.5.0",

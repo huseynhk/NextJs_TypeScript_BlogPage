@@ -20,8 +20,8 @@ const Card: React.FC<PostDataType> = ({ id, title, body, image }) => {
           </h2>
           <p className="my-3  text-gray-200">Body: {body.slice(0, 80)}...</p>
           <button
-            className=" btn btn-info text-gray-600 text-2xl"
-            onClick={() => push(`${ROUTER.Detail}/${id}`)}
+            className=" btn btn-info text-gray-800 text-2xl"
+            onClick={() => push(`${ROUTER.DetailPost}/${id}`)}
           >
             Get Info
           </button>

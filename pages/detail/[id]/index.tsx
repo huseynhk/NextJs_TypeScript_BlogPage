@@ -3,6 +3,7 @@ import { getPostID } from "../../../services/posts";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import { ROUTER } from "../../../shared/constants/router";
+import Head from "next/head";
 
 const PostDetail: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -11,12 +12,15 @@ const PostDetail: React.FC<
 
   return (
     <>
+      <Head>
+        <title>Detail Page</title>
+      </Head>
       <div className="card lg:card-side bg-base-100 shadow-xl ">
-        <figure>
+        <figure className="w-10/12">
           <img
             src={post?.image}
             alt={post?.title}
-            className="h-screen w-screen object-cover"
+            className="h-screen  object-cover"
           />
         </figure>
         <div className="card-body p-6">
@@ -26,10 +30,10 @@ const PostDetail: React.FC<
           <p className="text-xl text-sky-300 my-4">{post?.body}</p>
           <div className="card-actions justify-end">
             <button
-              className="btn btn-secondary text-gray-200 px-6 text-2xl"
-              onClick={() => push(`${query.id}/${ROUTER.UpdatePost}`)}
+              className="btn btn-secondary text-gray-200 px-10 text-3xl"
+              onClick={() => push(`${query.id}/${ROUTER.ActionPost}`)}
             >
-              Update
+              Actions
             </button>
           </div>
         </div>

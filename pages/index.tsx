@@ -4,20 +4,29 @@ import { getPosts } from "../services/posts";
 import { PostDataType } from "../interface/data";
 import Card from "../shared/components/Card";
 
+
 const Home: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ posts }) => {
+
+  
   return (
-    <main>
+    <main className="h-screen">
       <Head>
         <title>Blog Page</title>
       </Head>
 
-      <ul className="p-16 grid gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {posts?.map((post: PostDataType) => (
-          <Card {...post} />
-        ))}
-      </ul>
+      {posts && posts.length > 0 ? (
+        <ul className="p-20 grid gap-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post: PostDataType) => (
+            <Card {...post} key={post.id} />
+          ))}
+        </ul>
+      ) : (
+        <p className="text-center text-5xl pt-60 text-gray-500 capitalize font-extrabold">
+          no posts available
+        </p>
+      )}
     </main>
   );
 };

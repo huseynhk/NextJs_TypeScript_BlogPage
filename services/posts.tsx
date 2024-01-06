@@ -1,14 +1,41 @@
-import { PostDataType } from "../interface/data";
 import { ENDPOINTS } from "../shared/constants/endpoints";
 import { instanceAxios } from "../shared/helpers/instanceAxios";
-import { AxiosResponse } from "axios";
+import {
+  GetPosts,
+  GetSinglePost,
+  AddPost,
+  EditPost,
+  DeletePost,
+} from "../interface/data";
 
-type GetPostsResponse = AxiosResponse<PostDataType[]>;
-type GetPostIDResponse = AxiosResponse<PostDataType>;
-
-
-export const getPosts = (): Promise<GetPostsResponse> =>
+// Get
+export const getPosts = (): GetPosts =>
   instanceAxios({ method: "GET", url: ENDPOINTS.POSTS });
 
-export const getPostID = (id: number | string): Promise<GetPostIDResponse> =>
-  instanceAxios({ method: "GET", url: ENDPOINTS.POST_ID(id) });
+// Get Single
+export const getPostID: GetSinglePost = (id) => {
+  return instanceAxios({ method: "GET", url: ENDPOINTS.POST_ID(id) });
+};
+
+// ADD
+export const addPost: AddPost = (newPost) => {
+  return instanceAxios({
+    method: "POST",
+    url: ENDPOINTS.POSTS,
+    data: newPost,
+  });
+};
+
+// EDIT
+export const editPost: EditPost = (id, updatedPost) => {
+  return instanceAxios({
+    method: "PUT",
+    url: ENDPOINTS.POST_ID(id),
+    data: updatedPost,
+  });
+};
+
+// DELETE
+export const deletePost: DeletePost = (id) => {
+  return instanceAxios({ method: "DELETE", url: ENDPOINTS.POST_ID(id) });
+};

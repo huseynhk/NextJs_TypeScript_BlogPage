@@ -5,6 +5,7 @@ export interface PostDataType {
   title: string;
   body: string;
   image: string;
+  create_at: number;
 }
 export interface InitialStateType extends Omit<PostDataType, "id"> {}
 

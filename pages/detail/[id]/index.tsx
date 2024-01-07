@@ -1,9 +1,9 @@
 import React from "react";
+import Head from "next/head";
 import { getPostID } from "../../../services/posts";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import { ROUTER } from "../../../shared/constants/router";
-import Head from "next/head";
 
 const PostDetail: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -16,7 +16,7 @@ const PostDetail: React.FC<
         <title>Detail Page</title>
       </Head>
       <div className="card lg:card-side bg-base-100 shadow-xl ">
-        <figure className="w-10/12">
+        <figure className="w-4/6">
           <img
             src={post?.image}
             alt={post?.title}

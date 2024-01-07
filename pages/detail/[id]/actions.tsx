@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
+import Layout from "@/shared/components/Layout";
+import DeletePost from "../../DeletePost";
+import moment from "moment";
 import { getPostID, editPost, deletePost } from "../../../services/posts";
 import { QUERIES } from "../../../shared/constants/queries";
 import { useQuery, useMutation } from "react-query";
@@ -6,18 +10,17 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { ROUTER } from "../../../shared/constants/router";
 import { InitialStateType } from "../../../interface/data";
-import DeletePost from "../../DeletePost";
 import { useQueryClient } from "react-query";
-import Head from "next/head";
 
-
+const createDate = moment().valueOf();
 const initialState: InitialStateType = {
   title: "",
   body: "",
   image: "",
+  create_at: createDate,
 };
 
-const ActionPost = () => {
+const ActionPost: React.FC = () => {
   const { push, query } = useRouter();
   const [editedPost, setEditedPost] = useState<InitialStateType>(initialState);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
@@ -102,64 +105,71 @@ const ActionPost = () => {
       <Head>
         <title>Action Page</title>
       </Head>
-      <div className="h-screen flex justify-center py-10">
-        {isLoading && <p>Loading...</p>}
-        {isError && <p>Error loading post</p>}
-        <div>
-          <h1 className="mb-7 text-4xl text-accent text-center">Update Post</h1>
 
+      <Layout>
+        <div className="flex justify-center py-10">
+          {isLoading && <p>Loading...</p>}
+          {isError && <p>Error loading post</p>}
           <div>
+            <h1 className="mb-7 text-4xl text-accent text-center">
+              Update Post
+            </h1>
+
             <div>
-              <input
-                className="input input-bordered join-item w-80 px-4"
-                placeholder="Title"
-                name="title"
-                value={editedPost.title}
-                onChange={handleInputChange}
-              />
+              <div>
+                <input
+                  className="input input-bordered join-item w-80 px-4"
+                  placeholder="Title"
+                  name="title"
+                  value={editedPost.title}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="my-5">
+                <input
+                  className="input input-bordered join-item w-80 px-4"
+                  placeholder="Body"
+                  name="body"
+                  value={editedPost.body}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <input
+                  className="input input-bordered join-item w-80 px-4"
+                  placeholder="ImageUrl"
+                  name="image"
+                  value={editedPost.image}
+                  onChange={handleInputChange}
+                />
+              </div>
             </div>
-            <div className="my-5">
-              <input
-                className="input input-bordered join-item w-80 px-4"
-                placeholder="Body"
-                name="body"
-                value={editedPost.body}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <input
-                className="input input-bordered join-item w-80 px-4"
-                placeholder="ImageUrl"
-                name="image"
-                value={editedPost.image}
-                onChange={handleInputChange}
-              />
-            </div>
+
+            <button
+              className="btn btn-accent mt-5 w-full text-xl text-gray-800"
+              onClick={handleEditPost}
+            >
+              {mutation.isLoading ? "Updating Post..." : "Update Post"}
+            </button>
+
+            <h1 className="pt-20 text-4xl text-error text-center">
+              Delete Post
+            </h1>
+            <button
+              className="btn btn-error mt-3 w-full text-xl text-gray-800"
+              onClick={openDeleteModal}
+            >
+              Delete Post
+            </button>
+
+            <DeletePost
+              isOpen={isDeleteModalOpen}
+              onClose={closeDeleteModal}
+              onDelete={handleDeletePost}
+            />
           </div>
-
-          <button
-            className="btn btn-accent mt-5 w-full text-xl text-gray-800"
-            onClick={handleEditPost}
-          >
-            {mutation.isLoading ? "Updating Post..." : "Update Post"}
-          </button>
-
-          <h1 className="pt-20 text-4xl text-error text-center">Delete Post</h1>
-          <button
-            className="btn btn-error mt-3 w-full text-xl text-gray-800"
-            onClick={openDeleteModal}
-          >
-            {mutation.isLoading ? "Deleting Post..." : "Delete Post"}
-          </button>
-
-          <DeletePost
-            isOpen={isDeleteModalOpen}
-            onClose={closeDeleteModal}
-            onDelete={handleDeletePost}
-          />
         </div>
-      </div>
+      </Layout>
     </>
   );
 };

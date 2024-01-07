@@ -1,16 +1,20 @@
 import React, { useState } from "react";
+import Head from "next/head";
+import Layout from "@/shared/components/Layout";
 import { addPost } from "../../services/posts";
 import { useMutation } from "react-query";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { ROUTER } from "../../shared/constants/router";
 import { InitialStateType } from "../../interface/data";
-import Head from "next/head";
+import moment from "moment";
 
+const createDate = moment().valueOf();
 const initialState: InitialStateType = {
   title: "",
   body: "",
   image: "",
+  create_at: createDate,
 };
 
 const AddPost = () => {
@@ -56,49 +60,50 @@ const AddPost = () => {
       <Head>
         <title>Add Page</title>
       </Head>
-      ;
-      <div className="h-screen flex justify-center py-14">
-        <div>
-          <h1 className="mb-7 text-4xl text-accent text-center">Add Post</h1>
+      <Layout>
+        <div className="flex justify-center py-14">
           <div>
+            <h1 className="mb-7 text-4xl text-accent text-center">Add Post</h1>
             <div>
-              <input
-                className="input input-bordered join-item w-80 px-4"
-                placeholder="Title"
-                name="title"
-                value={newPost.title}
-                onChange={handleInputChange}
-              />
+              <div>
+                <input
+                  className="input input-bordered join-item w-80 px-4"
+                  placeholder="Title"
+                  name="title"
+                  value={newPost.title}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="my-5">
+                <input
+                  className="input input-bordered join-item w-80 px-4"
+                  placeholder="Body"
+                  name="body"
+                  value={newPost.body}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <input
+                  className="input input-bordered join-item w-80 px-4"
+                  placeholder="ImageUrl"
+                  name="image"
+                  value={newPost.image}
+                  onChange={handleInputChange}
+                />
+              </div>
             </div>
-            <div className="my-5">
-              <input
-                className="input input-bordered join-item w-80 px-4"
-                placeholder="Body"
-                name="body"
-                value={newPost.body}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <input
-                className="input input-bordered join-item w-80 px-4"
-                placeholder="ImageUrl"
-                name="image"
-                value={newPost.image}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
 
-          <button
-            className="btn btn-accent mt-5 w-full text-xl text-gray-600"
-            onClick={handleAddPost}
-            disabled={!isFormValid()}
-          >
-            {mutation.isLoading ? "Adding Post..." : "Add Post"}
-          </button>
+            <button
+              className="btn btn-accent mt-5 w-full text-xl text-gray-800"
+              onClick={handleAddPost}
+              disabled={!isFormValid()}
+            >
+              {mutation.isLoading ? "Adding Post..." : "Add Post"}
+            </button>
+          </div>
         </div>
-      </div>
+      </Layout>
     </>
   );
 };

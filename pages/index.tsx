@@ -34,9 +34,8 @@ const Home: React.FC<
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const response = await getPosts();
-    // const posts = response.data;
     const postDatas = response.data;
-    const posts = postDatas.filter((post) => Number(post.id) > 100);
+    const posts = postDatas.filter((post) => (post.id as number) > 100);
 
     return {
       props: {

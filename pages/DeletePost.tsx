@@ -13,7 +13,7 @@ const DeletePost: React.FC<DeleteModalProps> = ({
   onDelete,
 }) => {
   return (
-    <Transition show={isOpen} as={Fragment}>
+    <Transition show={!!isOpen} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"

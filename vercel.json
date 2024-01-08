@@ -1,0 +1,7 @@
+{
+    "functions": {
+        "someFunction": {
+            "maxDuration": 10
+        }
+    }
+}
